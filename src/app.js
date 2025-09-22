@@ -5,6 +5,7 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
+import securityMiddleware from '#middleware/security.middleware.js';
 import authRoutes from '#routes/auth.routes.js';
 
 const app = express();
@@ -14,6 +15,8 @@ app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(securityMiddleware);
 
 app.use(
   morgan('combined', {
