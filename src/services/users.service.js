@@ -1,6 +1,7 @@
 import { db } from '#config/db.js';
 import logger from '#config/logger.js';
 import { users } from '#models/user.model.js';
+import { eq } from 'drizzle-orm';
 
 export const getAllUsers = async () => {
   try {
@@ -22,18 +23,18 @@ export const getAllUsers = async () => {
 
 export const getUserById = async id => {
   try {
-    const user = await db
+    const [user] = await db
       .select({
         id: users.id,
-        name: users.name,
         email: users.email,
+        name: users.name,
         role: users.role,
         createdAt: users.createdAt,
         updatedAt: users.updatedAt,
       })
       .from(users)
-      .where(users.id, '=', id)
-      .first();
+      .where(eq(users.id, id))
+      .limit(1);
 
     if (!user) {
       throw new Error('User not found');
