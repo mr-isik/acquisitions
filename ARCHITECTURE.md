@@ -1,12 +1,15 @@
-# Acquisitions API - Architecture Documentation
+# Architecture Document
 
-## 1. **The Big Picture**
+## System Architecture
 
-### What Type of Project?
+### 1. High-Level Overview
+
 This is a **RESTful API backend service** built with Node.js and Express.js, designed to handle "acquisitions" management with user authentication and authorization capabilities.
 
 ### Problem It Solves
+
 The system provides a secure, scalable foundation for managing acquisition-related workflows with:
+
 - User registration and authentication
 - Role-based access control (user/admin)
 - Secure data persistence
@@ -53,6 +56,7 @@ This application follows a **Layered Architecture Pattern** (also known as N-Tie
 ```
 
 ### Folder Structure
+
 ```
 acquisitions/
 ├── src/
@@ -85,11 +89,13 @@ acquisitions/
 ## 3. **Key Components**
 
 ### Entry & Server Setup
+
 - **`index.js`**: Minimal entry point that loads environment variables and imports the server
 - **`server.js`**: Creates HTTP server listening on configured port
 - **`app.js`**: Core Express application setup with middleware chain
 
 ### Middleware Stack (Order Matters!)
+
 1. **Helmet**: Security headers (CSP, X-Frame-Options, etc.)
 2. **CORS**: Cross-Origin Resource Sharing configuration
 3. **Cookie Parser**: Parse Cookie headers
@@ -97,6 +103,7 @@ acquisitions/
 5. **Morgan**: HTTP request logging integrated with Winston
 
 ### Authentication System
+
 - **Controller** (`auth.controller.js`): Handles HTTP requests, validation, responses
 - **Service** (`auth.service.js`): Business logic for user creation, password hashing
 - **Validation** (`auth.validation.js`): Zod schemas for input validation
@@ -104,12 +111,14 @@ acquisitions/
 - **Cookie Utility** (`cookies.js`): Secure cookie management with environment-aware settings
 
 ### Database Layer
+
 - **ORM**: Drizzle ORM for type-safe database queries
 - **Provider**: Neon serverless PostgreSQL
 - **Migrations**: Version-controlled schema changes in `drizzle/` folder
 - **Models**: TypeScript-like schema definitions with Drizzle's API
 
 ### Logging Infrastructure
+
 - **Winston Logger**: Structured JSON logging with multiple transports
 - **File Transports**: Separate error.log and combined.log files
 - **Console Transport**: Colorized output in development
@@ -132,7 +141,7 @@ CLIENT                                    SERVER
   │                                    ┌─────▼─────┐
   │                                    │Controller │
   │                                    │  ├─[2]─►  │ Validation (Zod)
-  │                                    │  ◄─[3]──  │ 
+  │                                    │  ◄─[3]──  │
   │                                    └─────┬─────┘
   │                                          │
   │                                    ┌─────▼─────┐
@@ -165,27 +174,32 @@ CLIENT                                    SERVER
 ## 5. **Tech Stack & Dependencies**
 
 ### Core Framework
+
 - **Express v5**: Modern web framework with async error handling
 - **Node.js**: ES modules enabled (`"type": "module"`)
 
 ### Security Layer
+
 - **Helmet**: Security headers middleware
 - **CORS**: Cross-origin request handling
 - **bcryptjs**: Password hashing (10 salt rounds)
 - **jsonwebtoken**: JWT authentication
 
 ### Database Stack
+
 - **Drizzle ORM**: Type-safe SQL query builder
 - **Neon Database**: Serverless PostgreSQL
 - **drizzle-kit**: Migration and studio tools
 
 ### Validation & Utilities
+
 - **Zod**: Schema validation with TypeScript-like API
 - **Winston**: Structured logging
 - **Morgan**: HTTP request logging
 - **dotenv**: Environment variable management
 
 ### Development Tools
+
 - **ESLint**: Code quality enforcement
 - **Prettier**: Code formatting
 - **Node --watch**: Built-in file watching for development
@@ -193,6 +207,7 @@ CLIENT                                    SERVER
 ## 6. **Execution Flow**
 
 ### Startup Sequence
+
 1. `index.js` loads environment variables via dotenv
 2. Imports `server.js` which imports the Express app
 3. Express app configures middleware in specific order
@@ -200,6 +215,7 @@ CLIENT                                    SERVER
 5. Server starts listening on configured PORT
 
 ### Request Lifecycle
+
 ```
 1. Request arrives → Express middleware chain
 2. Security headers applied (Helmet)
@@ -218,6 +234,7 @@ CLIENT                                    SERVER
 ```
 
 ### Error Flow
+
 - Validation errors → 400 Bad Request with formatted messages
 - Duplicate user → 400 Bad Request with specific message
 - Unexpected errors → Logged and passed to Express error handler
@@ -226,6 +243,7 @@ CLIENT                                    SERVER
 ## 7. **Strengths & Tradeoffs**
 
 ### Strengths ✅
+
 - **Clean Architecture**: Clear separation between layers makes the code maintainable
 - **Type Safety**: Zod validation + Drizzle ORM provide runtime and development-time safety
 - **Security First**: Multiple security layers (Helmet, httpOnly cookies, password hashing)
@@ -235,6 +253,7 @@ CLIENT                                    SERVER
 - **Production Ready**: Environment-specific configurations, comprehensive logging
 
 ### Tradeoffs & Considerations ⚠️
+
 - **No Middleware Directory**: Auth middleware not yet implemented (placeholder for protected routes)
 - **Limited Endpoints**: Only registration implemented, login/logout are placeholders
 - **Cookie Duration**: 15-minute cookies might be too short for some use cases
@@ -244,6 +263,7 @@ CLIENT                                    SERVER
 - **Synchronous Password Hashing**: Could block event loop under high load
 
 ### Watch Out For 🔍
+
 - The service layer has a bug: `existingUser` check doesn't await the database query
 - JWT secret defaults to insecure value if not set in environment
 - No database connection pooling configuration
@@ -276,6 +296,7 @@ npm run db:studio
 ## Example API Usage
 
 ### Register a New User
+
 ```bash
 curl -X POST http://localhost:3000/api/auth/register \
   -H "Content-Type: application/json" \
@@ -288,6 +309,7 @@ curl -X POST http://localhost:3000/api/auth/register \
 ```
 
 ### Response
+
 ```json
 {
   "message": "User registered successfully",
@@ -299,4 +321,5 @@ curl -X POST http://localhost:3000/api/auth/register \
   }
 }
 ```
+
 Plus a `Set-Cookie` header with the JWT token.
