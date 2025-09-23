@@ -1,16 +1,19 @@
 # Acquisitions API
 
-A modern and scalable Node.js API project. This backend application is developed using best practices and cutting-edge technologies.
+A modern and scalable Node.js API project. This backend application is developed using best practices and cutting-edge technologies to provide a robust foundation for acquisition management systems.
 
 ## 🚀 Features
 
-- **Modern JavaScript** - Built with ES6+ features
+- **Modern JavaScript** - Built with ES6+ features and modern ECMAScript patterns
 - **Powerful ORM** - Type-safe database operations with Drizzle ORM
-- **Security** - Advanced rate limiting and security measures with Arcjet
-- **Docker Support** - Separate Docker configurations for development and production
-- **Logging** - Comprehensive logging system with Winston
-- **Database** - Neon Serverless Postgres (Neon Local for development)
-- **API Security** - Security headers with Helmet middleware
+- **Advanced Security** - Rate limiting and protection with Arcjet
+- **Docker Integration** - Development and production-ready Docker configurations
+- **Comprehensive Logging** - Structured logging with Winston
+- **Serverless Database** - Neon Serverless Postgres with local development support
+- **API Security** - Enhanced security with Helmet middleware
+- **Authentication** - JWT-based authentication with role-based access control
+- **Input Validation** - Request validation using Zod schemas
+- **Error Handling** - Centralized error handling and standardized responses
 
 ## 📦 Installation
 
@@ -54,7 +57,7 @@ npm run db:migrate
 npm run dev
 ```
 
-### Lint Kontrolü
+### Lint Check
 
 ```bash
 npm run lint
@@ -80,23 +83,23 @@ npm run build
 docker compose -f docker-compose.prod.yml up -d
 ```
 
-## 📚 API Dokümantasyonu
+## 📚 API Documentation
 
-### Kullanıcı İşlemleri
+### User Operations
 
-#### Tüm Kullanıcıları Getir
+#### Get All Users
 
 ```http
 GET /users
 ```
 
-#### Tek Kullanıcı Getir
+#### Get Single User
 
 ```http
 GET /users/:id
 ```
 
-#### Yeni Kullanıcı Oluştur
+#### Create New User
 
 ```http
 POST /users
@@ -109,7 +112,7 @@ Content-Type: application/json
 }
 ```
 
-#### Kullanıcı Güncelle
+#### Update User
 
 ```http
 PUT /users/:id
@@ -122,21 +125,21 @@ Content-Type: application/json
 }
 ```
 
-#### Kullanıcı Sil
+#### Delete User
 
 ```http
 DELETE /users/:id
 ```
 
-## 🔒 Güvenlik
+## 🔒 Security
 
-- Helmet ile güvenlik başlıkları
-- Rate limiting (role-based)
+- Security headers with Helmet
+- Role-based rate limiting
 - Bot detection
-- CORS yapılandırması
-- Cookie güvenliği
+- CORS configuration
+- Cookie security
 
-## 📝 Ortam Değişkenleri
+## 📝 Environment Variables
 
 ```env
 NODE_ENV=development
@@ -147,7 +150,7 @@ ARCJET_KEY=your-arcjet-key
 
 ## 🛡️ Rate Limiting
 
-Kullanıcı rollerine göre rate limiting:
+Rate limiting based on user roles:
 
 - Admin: 20 req/min
 - User: 10 req/min
@@ -156,39 +159,39 @@ Kullanıcı rollerine göre rate limiting:
 
 ## 🐳 Docker
 
-Development ve production için ayrı Docker yapılandırmaları:
+Separate Docker configurations for development and production:
 
-- `Dockerfile` - Ana uygulama container'ı
-- `docker-compose.dev.yml` - Development ortamı (Neon Local dahil)
-- `docker-compose.prod.yml` - Production ortamı
+- `Dockerfile` - Main application container
+- `docker-compose.dev.yml` - Development environment (including Neon Local)
+- `docker-compose.prod.yml` - Production environment
 
-## 📁 Proje Yapısı
+## 📁 Project Structure
 
 ```
 acquisitions/
 ├── src/
-│   ├── config/        # Yapılandırma dosyaları
-│   ├── controllers/   # Route handler'lar
-│   ├── middleware/    # Custom middleware'ler
-│   ├── models/        # Veritabanı modelleri
-│   ├── routes/        # API route'ları
-│   ├── services/      # İş mantığı
-│   ├── utils/         # Yardımcı fonksiyonlar
-│   ├── validations/   # Input validasyonları
-│   └── app.js         # Express app yapılandırması
-├── drizzle/           # Veritabanı migrations
-├── logs/             # Log dosyaları
-└── docker/           # Docker yapılandırmaları
+│   ├── config/        # Configuration files
+│   ├── controllers/   # Route handlers
+│   ├── middleware/    # Custom middleware
+│   ├── models/        # Database models
+│   ├── routes/        # API routes
+│   ├── services/      # Business logic
+│   ├── utils/         # Helper functions
+│   ├── validations/   # Input validation
+│   └── app.js         # Express app configuration
+├── drizzle/           # Database migrations
+├── logs/             # Log files
+└── docker/           # Docker configurations
 ```
 
-## 👥 Katkıda Bulunma
+## 👥 Contributing
 
-1. Fork'layın
-2. Feature branch oluşturun (`git checkout -b feature/amazing`)
-3. Değişikliklerinizi commit edin (`git commit -m 'feat: add amazing feature'`)
-4. Branch'inizi push edin (`git push origin feature/amazing`)
-5. Pull Request açın
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing`)
+5. Open a Pull Request
 
-## 📄 Lisans
+## 📄 License
 
-Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakınız.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
