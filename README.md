@@ -133,6 +133,110 @@ Content-Type: application/json
 DELETE /users/:id
 ```
 
+### Comment Operations
+
+#### Get Comments for a Post
+
+```http
+GET /posts/:id/comments?page=1&limit=10
+```
+
+Response:
+
+```json
+{
+  "message": "Comments retrieved successfully",
+  "comments": [
+    {
+      "id": 1,
+      "postId": 1,
+      "content": "Great post!",
+      "author": "John Doe",
+      "createdAt": "2025-09-24T10:00:00Z",
+      "updatedAt": "2025-09-24T10:00:00Z"
+    }
+  ],
+  "count": 1
+}
+```
+
+#### Add Comment to Post
+
+```http
+POST /posts/:id/comments
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "content": "This is a comment"
+}
+```
+
+Response:
+
+```json
+{
+  "message": "Comment added successfully",
+  "comment": {
+    "id": 1,
+    "postId": 1,
+    "content": "This is a comment",
+    "authorId": 1,
+    "createdAt": "2025-09-24T10:00:00Z",
+    "updatedAt": "2025-09-24T10:00:00Z"
+  }
+}
+```
+
+#### Update Comment
+
+```http
+PUT /posts/:id/comments/:commentId
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "content": "Updated comment content"
+}
+```
+
+Response:
+
+```json
+{
+  "message": "Comment updated successfully",
+  "comment": {
+    "id": 1,
+    "postId": 1,
+    "content": "Updated comment content",
+    "authorId": 1,
+    "createdAt": "2025-09-24T10:00:00Z",
+    "updatedAt": "2025-09-24T10:00:00Z"
+  }
+}
+```
+
+#### Delete Comment
+
+```http
+DELETE /posts/:id/comments/:commentId
+Authorization: Bearer <token>
+```
+
+Response:
+
+```json
+{
+  "message": "Comment deleted successfully"
+}
+```
+
+Validation:
+
+- content: 2-500 characters
+- Authentication required for adding, updating, and deleting comments
+- Users can only update/delete their own comments
+
 ### Post Operations
 
 #### Get All Posts (with Pagination)
