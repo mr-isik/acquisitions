@@ -7,6 +7,7 @@ import morgan from 'morgan';
 
 import securityMiddleware from '#middleware/security.middleware.js';
 import authRoutes from '#routes/auth.routes.js';
+import postRoutes from '#routes/post.routes.js';
 import userRoutes from '#routes/user.routes.js';
 
 const app = express();
@@ -46,5 +47,6 @@ app.get('/api', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/posts', postRoutes);
 
 export default app;
