@@ -1,6 +1,7 @@
 import { db } from '#config/db.js';
 import logger from '#config/logger.js';
 import { posts } from '#models/post.model.js';
+import { users } from '#models/user.model.js';
 import { eq } from 'drizzle-orm';
 
 export const getPosts = async (page = 1, limit = 10) => {
@@ -8,7 +9,7 @@ export const getPosts = async (page = 1, limit = 10) => {
     return await db
       .select({
         id: posts.id,
-        userId: posts.userId,
+        ownerName: users.name,
         title: posts.title,
         slug: posts.slug,
         content: posts.content,
@@ -16,6 +17,8 @@ export const getPosts = async (page = 1, limit = 10) => {
         updatedAt: posts.updatedAt,
       })
       .from(posts)
+      .leftJoin(users, eq(posts.userId, users.id))
+      .orderBy(posts.createdAt, 'desc')
       .limit(limit)
       .offset((page - 1) * limit);
   } catch (error) {
@@ -28,8 +31,8 @@ export const getPostBySlug = async slug => {
   try {
     const [post] = await db
       .select({
-        id: posts.id,
-        userId: posts.userId,
+        postId: posts.id,
+        ownerName: users.name,
         title: posts.title,
         slug: posts.slug,
         content: posts.content,
@@ -37,6 +40,7 @@ export const getPostBySlug = async slug => {
         updatedAt: posts.updatedAt,
       })
       .from(posts)
+      .leftJoin(users, eq(users.id, posts.userId))
       .where(eq(posts.slug, slug))
       .limit(1);
     if (!post) {

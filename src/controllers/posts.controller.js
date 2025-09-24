@@ -16,7 +16,13 @@ export const fetchPosts = async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;
     const posts = await getPosts(Number(page), Number(limit));
-    res.json(posts);
+    res.json({
+      message: 'Posts retrieved successfully',
+      posts,
+      page: Number(page),
+      limit: Number(limit),
+      count: posts.length,
+    });
   } catch (error) {
     logger.error('Error fetching posts:', error);
     res.status(500).json({ error: 'Could not fetch posts' });
@@ -27,7 +33,10 @@ export const fetchPostBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
     const post = await getPostBySlug(slug);
-    res.json(post);
+    res.json({
+      message: 'Post retrieved successfully',
+      post,
+    });
   } catch (error) {
     logger.error('Error fetching post by slug:', error);
     res.status(500).json({ error: 'Could not fetch post' });
