@@ -1,8 +1,8 @@
-# Postify API
-
 <div align="center">
   <img src="src/assets/logo.svg" alt="Acquisitions API Logo" width="400">
 </div>
+
+# Postify API
 
 # Acquisitions API
 
