@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="src/assets/logo.svg" alt="Acquisitions API Logo" width="400">
+  <img src="src/assets/logo.svg" alt="Postify API Logo" width="400">
 </div>
 
 # Postify API
