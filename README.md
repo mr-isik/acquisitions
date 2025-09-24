@@ -1,5 +1,11 @@
 # Postify API
 
+<div align="center">
+  <img src="src/assets/logo.png" alt="Acquisitions API Logo" width="200">
+</div>
+
+# Acquisitions API
+
 A modern and scalable Node.js API project. This backend application is developed using best practices and cutting-edge technologies to provide a robust foundation for acquisition management systems.
 
 ## 🚀 Features
