@@ -1,4 +1,4 @@
-# Acquisitions API
+# Postify API
 
 A modern and scalable Node.js API project. This backend application is developed using best practices and cutting-edge technologies to provide a robust foundation for acquisition management systems.
 
@@ -22,8 +22,8 @@ A modern and scalable Node.js API project. This backend application is developed
 1. **Clone the Repository**
 
 ```bash
-git clone https://github.com/mr-isik/acquisitions.git
-cd acquisitions
+git clone https://github.com/mr-isik/postify.git
+cd postify
 ```
 
 2. **Install Dependencies**
@@ -361,7 +361,7 @@ Separate Docker configurations for development and production:
 ## 📁 Project Structure
 
 ```
-acquisitions/
+postify/
 ├── src/
 │   ├── config/        # Configuration files
 │   ├── controllers/   # Route handlers

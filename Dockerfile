@@ -1,4 +1,4 @@
-# Multi-stage Dockerfile for Node.js acquisitions application
+# Multi-stage Dockerfile for Node.js postify application
 
 # Base image with Node.js
 FROM node:20-alpine AS base
