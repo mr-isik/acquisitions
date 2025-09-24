@@ -14,6 +14,8 @@ A modern and scalable Node.js API project. This backend application is developed
 - **Authentication** - JWT-based authentication with role-based access control
 - **Input Validation** - Request validation using Zod schemas
 - **Error Handling** - Centralized error handling and standardized responses
+- **Content Management** - Blog-style posts with slug-based URLs and pagination
+- **Role-Based Access** - Admin-only content management operations
 
 ## 📦 Installation
 
@@ -129,6 +131,93 @@ Content-Type: application/json
 
 ```http
 DELETE /users/:id
+```
+
+### Post Operations
+
+#### Get All Posts (with Pagination)
+
+```http
+GET /posts?page=1&limit=10
+```
+
+Response:
+
+```json
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "title": "Sample Post",
+    "slug": "sample-post",
+    "content": "Post content here...",
+    "createdAt": "2025-09-24T10:00:00Z",
+    "updatedAt": "2025-09-24T10:00:00Z"
+  }
+]
+```
+
+#### Get Post by Slug
+
+```http
+GET /posts/:slug
+```
+
+Response:
+
+```json
+{
+  "id": 1,
+  "userId": 1,
+  "title": "Sample Post",
+  "slug": "sample-post",
+  "content": "Post content here...",
+  "createdAt": "2025-09-24T10:00:00Z",
+  "updatedAt": "2025-09-24T10:00:00Z"
+}
+```
+
+#### Create New Post (Admin Only)
+
+```http
+POST /posts
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "title": "New Post Title",
+  "slug": "new-post-title",
+  "content": "Post content goes here..."
+}
+```
+
+Validation:
+
+- title: 3-200 characters
+- content: Minimum 10 characters
+- slug: 3-200 characters (optional, will be generated from title if not provided)
+
+#### Update Post (Admin Only)
+
+```http
+PUT /posts/:id
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "title": "Updated Post Title",
+  "slug": "updated-post-title",
+  "content": "Updated content goes here..."
+}
+```
+
+All fields are optional in update operation.
+
+#### Delete Post (Admin Only)
+
+```http
+DELETE /posts/:id
+Authorization: Bearer <token>
 ```
 
 ## 🔒 Security
