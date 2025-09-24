@@ -4,8 +4,6 @@
 
 # Postify API
 
-# Acquisitions API
-
 A modern and scalable Node.js API project. This backend application is developed using best practices and cutting-edge technologies to provide a robust foundation for acquisition management systems.
 
 ## 🚀 Features
